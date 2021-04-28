@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
                         rss_url = etUrl.getText().toString();
                         initRss(rss_url);
                         addRssDialog.dismiss();
+                    }else{
+                        Toast.makeText(MainActivity.this,"Please enter link",Toast.LENGTH_SHORT).show();
+                        etUrl.requestFocus();
                     }
                 });
                 cancel.setOnClickListener(l2 -> addRssDialog.dismiss());
