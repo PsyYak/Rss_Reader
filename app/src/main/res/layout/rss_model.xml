@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:src="@drawable/no_image_icon"
+            android:id="@+id/rssImage"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+           >
+
+        </ImageView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:padding="5dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rss Title"
+                android:maxLines="1"
+                android:id="@+id/rssTitle">
+
+            </TextView>
+
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/rssDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:text="Rss Description">
+
+            </TextView>
+
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/rssDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:padding="5dp"
+
+                android:lines="1"
+                android:text="Rss Date">
+
+            </TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
