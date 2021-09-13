@@ -84,7 +84,7 @@ public class CustomAdapter extends BaseAdapter {
            public void onClick(View v) {
                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.getLink()));
                context.startActivity(browserIntent);
-               Toast.makeText(context,article.getLink(),Toast.LENGTH_SHORT).show();
+               //Toast.makeText(context,article.getLink(),Toast.LENGTH_SHORT).show();
            }
        });
 

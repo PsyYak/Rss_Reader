@@ -20,6 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import static com.example.rss_reader.RSS.RSSParser.articles;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
     // http://www.ynet.co.il/Integration/StoryRss550.xml
     private String rss_url = "";
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     ListView listView;
     ImageView backgroundImage;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -51,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
 
                 submit.setOnClickListener(l -> {
                     if(!etUrl.getText().toString().isEmpty()){
-                        rss_url = etUrl.getText().toString();
-                        initRss(rss_url);
+                      //  rss_url = etUrl.getText().toString();
+                        try {
+                            URL url = new URL(etUrl.getText().toString());
+                            initRss(url.toString());
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+
                         addRssDialog.dismiss();
                     }else{
                         Toast.makeText(MainActivity.this,"Please enter link",Toast.LENGTH_SHORT).show();
