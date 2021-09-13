@@ -55,16 +55,19 @@ public class MainActivity extends AppCompatActivity {
 
 
                 submit.setOnClickListener(l -> {
+                    articles.clear();
                     if(!etUrl.getText().toString().isEmpty()){
                       //  rss_url = etUrl.getText().toString();
                         try {
                             URL url = new URL(etUrl.getText().toString());
                             initRss(url.toString());
+                            addRssDialog.dismiss();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
+                            addRssDialog.dismiss();
                         }
 
-                        addRssDialog.dismiss();
+
                     }else{
                         Toast.makeText(MainActivity.this,"Please enter link",Toast.LENGTH_SHORT).show();
                         etUrl.requestFocus();
@@ -92,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(!articles.isEmpty()){
-
+        if(articles.size()> 0){
             backgroundImage.setVisibility(View.GONE);
         }else{
             backgroundImage.setVisibility(View.VISIBLE);
         }
+
     }
 }

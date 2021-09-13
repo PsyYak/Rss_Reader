@@ -4,16 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.rss_reader.R;
 import com.example.rss_reader.Data.Article;
+import com.example.rss_reader.R;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -63,21 +63,27 @@ public class CustomAdapter extends BaseAdapter {
         String title = article.getTitle();
         String description = article.getDesc();
         String date = article.getDate();
-        String imageUrl = article.getImageUrl().replace("localhost","10.0.2.2");
+        tvDesc.setText(description);
+          if(!article.getImageUrl().isEmpty() || !article.getImageUrl().equals("")) {
+            String imageUrl = article.getImageUrl().replace("localhost", "10.0.2.2");
+            PicassoClient.downloadImage(context,imageUrl,imgView);
+            tvDesc.setText(description.substring(2));
+        }
 
         // init ui data
         tvTitle.setText(title);
-        tvDesc.setText(description.substring(2));
-        @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm");
+
+        @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy");
         try {
             Date dateTest = formatter.parse(date);
+            assert dateTest != null;
             String strDate = formatter.format(dateTest);
             tvDate.setText(strDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
        // tvDate.setText(date);
-        PicassoClient.downloadImage(context,imageUrl,imgView);
+
 
        convertView.setOnClickListener(new View.OnClickListener() {
            @Override

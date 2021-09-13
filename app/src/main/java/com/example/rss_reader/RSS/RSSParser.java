@@ -18,11 +18,12 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 @SuppressLint("StaticFieldLeak")
 public class RSSParser extends AsyncTask<Void,Void,Boolean> {
-
 
     Context context;
     InputStream inputStream;
@@ -100,15 +101,17 @@ public class RSSParser extends AsyncTask<Void,Void,Boolean> {
                             if(tagName.equalsIgnoreCase("title")){
                                 article.setTitle(tagValue);
                             }else if(tagName.equalsIgnoreCase("description")){
-                                String desc = tagValue;
                                 // Extract Image from description
-                                String srcExtract = desc.substring(desc.indexOf("src=")+5);
-                                String imageUrl = srcExtract.substring(0,srcExtract.indexOf("jpg")+3);
-                                article.setImageUrl(imageUrl);
-                                // Remove any HTML tags from feed
-                                  article.setDesc(String.valueOf(Html.fromHtml(Html.fromHtml(desc).toString())));
-
-
+                                assert tagValue != null;
+                                if(tagValue.contains("src=")) {
+                                    String srcExtract = tagValue.substring(tagValue.indexOf("src=") + 5);
+                                    String imageUrl = srcExtract.substring(0, srcExtract.indexOf("jpg") + 3);
+                                    article.setImageUrl(imageUrl);
+                                    // Remove any HTML tags from feed
+                                }else{
+                                    article.setImageUrl("");
+                                }
+                                article.setDesc(String.valueOf(Html.fromHtml(Html.fromHtml(tagValue).toString())));
 
 
                             }else if(tagName.equalsIgnoreCase("pubDate")){
@@ -119,9 +122,13 @@ public class RSSParser extends AsyncTask<Void,Void,Boolean> {
                         if(tagName.equalsIgnoreCase("item")){
                             // Get only this year RSS feed ( you can also change it to full date as to only show last month RSS )
                             Date date = new Date();
-                            int year = date.getYear()+1900; // ***To get current year add 1900 to the value of year obtained from this date object***
-                            if(article.getDate().contains(String.valueOf(year)))
-                            articles.add(article);
+                            Calendar calendar = new GregorianCalendar();
+                            calendar.setTime(date);
+                            int year = calendar.get(Calendar.YEAR);
+                            if(article.getDate().contains(String.valueOf(year))){
+                                articles.add(article);
+                            }
+
                             isSiteMeta=true;
                         }
                         break;
