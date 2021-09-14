@@ -63,7 +63,7 @@ public class Downloader extends AsyncTask<Void,Void,Object> {
     }
 
     private Object downloadData(){
-
+        // Check connection to the given URL
         Object connection = Connector.connect(urlAddress);
         if(connection.toString().startsWith("Error")){
             return connection.toString();
@@ -72,10 +72,9 @@ public class Downloader extends AsyncTask<Void,Void,Object> {
         try{
             HttpURLConnection con = (HttpURLConnection) connection;
             int responseCode = con.getResponseCode();
-
+            // if response code is ok ( 200 ) - continue otherwise return response error
             if(responseCode == HttpURLConnection.HTTP_OK){
-                InputStream inputStream = new BufferedInputStream(con.getInputStream());
-                return inputStream;
+                return new BufferedInputStream(con.getInputStream());
             }
             return ErrorTracker.RESPONSE_ERROR+con.getResponseMessage();
 

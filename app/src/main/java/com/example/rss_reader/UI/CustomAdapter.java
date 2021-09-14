@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.rss_reader.Data.Article;
 import com.example.rss_reader.R;
@@ -20,6 +21,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class CustomAdapter extends BaseAdapter {
     Context context;
@@ -83,15 +85,17 @@ public class CustomAdapter extends BaseAdapter {
             e.printStackTrace();
         }
        // tvDate.setText(date);
+        notifyDataSetChanged();
 
 
-       convertView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+       convertView.setOnClickListener(v -> {
+           if(article.getLink() == null){
+               Toast.makeText(context,"No link available ",Toast.LENGTH_SHORT).show();
+           }else {
                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(article.getLink()));
                context.startActivity(browserIntent);
-               //Toast.makeText(context,article.getLink(),Toast.LENGTH_SHORT).show();
            }
+
        });
 
         return convertView;

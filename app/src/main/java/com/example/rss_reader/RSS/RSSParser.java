@@ -107,10 +107,11 @@ public class RSSParser extends AsyncTask<Void,Void,Boolean> {
                                     String srcExtract = tagValue.substring(tagValue.indexOf("src=") + 5);
                                     String imageUrl = srcExtract.substring(0, srcExtract.indexOf("jpg") + 3);
                                     article.setImageUrl(imageUrl);
-                                    // Remove any HTML tags from feed
+
                                 }else{
                                     article.setImageUrl("");
                                 }
+                                // Remove any HTML tags from feed
                                 article.setDesc(String.valueOf(Html.fromHtml(Html.fromHtml(tagValue).toString())));
 
 
