@@ -80,7 +80,6 @@ public class RSSParser extends AsyncTask<Void,Void,Boolean> {
 
             articles.clear();
             Article article = new Article();
-
             do{
 
                 String tagName = parser.getName();
